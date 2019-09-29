@@ -11,8 +11,8 @@ def about():
     return render_template('about.html')
 
 @app.route('/form')
-def about():
-    return render_template('form.html')
+def form():
+    return render_template('intro-form.html')
 
 @app.route('/get/<rfile>')
 def images(rfile):

@@ -1,8 +1,8 @@
 #!/bin/bash
 
-mkdir -p ../run/template
+mkdir -p ../run/templates
 
-cp ../grizzfront/*.html ../run/template/
+cp ../grizzfront/*.html ../run/templates/
 
 cp -r ../grizzfront/static ../run/static
 
