@@ -8,4 +8,6 @@ rm -rf ../run/static
 
 cp -r ../grizzfront/static ../run/static
 
+cp ../grizzfront/backup.css ../run/static/backup.css
+
 cp *.py ../run/

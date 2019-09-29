@@ -73,11 +73,20 @@ def emailForm(uid, mood):
             cal.append(pizzaCal.get(piz.types))
         
     cal.sort()
-    if(mood == "vsad" or mood =="sad"):
+    if(mood == "vsad"):
+        mood = "Very Sad"
         rec = revPizzaCal.get(max(cal))
-    elif(mood == "vhappy" or mood=="happy"):
+    elif(mood =="sad"):
+        mood="Sad"
+        rec = revPizzaCal.get(max(cal))
+    elif(mood == "vhappy"):
+        rec = revPizzaCal.get(min(cal))
+        mood="Very Happy"
+    elif(mood=="happy"):
+        mood="Happy"
         rec = revPizzaCal.get(min(cal))
     else:
+        mood= "Meh"
         rec = revPizzaCal.get(statistics.median_high(cal))
 
     return render_template("mood.html", pizza=rec, mood=mood)
