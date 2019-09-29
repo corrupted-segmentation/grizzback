@@ -1,4 +1,5 @@
 from flask import Flask, render_template, send_from_directory, abort, send_file, safe_join
+import magic
 app = Flask(__name__)
 
 
@@ -17,8 +18,7 @@ def form():
 @app.route('/static/<rfile>')
 def images(rfile):
     try:
-        return send_file(filename_or_fp=safe_join("./static/", rfile))
-        #return send_from_directory("./static/",rfile, mimetype='text/plain')
+        return send_from_directory("./static/",rfile, mimetype=magic.from_file(safe_join("./static/", rfile), mime=True))
     except:
         return abort(404)
 
