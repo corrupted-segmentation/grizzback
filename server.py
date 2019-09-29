@@ -9,6 +9,16 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite+pysqlite:///../grizzback/pizza.d
 db = SQLAlchemy(app)
 
 
+class User(db.Model):
+    email = db.Column(db.String(80))
+    name = db.Column(db.String(50))
+    team = db.Column(db.String(20))
+    userid = db.Column(db.String(130), primary_key=True)
+
+class ptypes(db.Model):
+    pizzatypes = db.Column(db.String(11), primary_key=True)
+    userid = db.Column(db.String(130), primary_key=True)
+
 #nav bar routes
 @app.route('/')
 def index():
@@ -26,6 +36,9 @@ def form():
 @app.route('/inForm', methods=['POST'])
 def inForm():
     print(request.form)
+    userid = request.form.get("name") + request.form.get("email")
+    user = User(email=request.form.get("email"), name=request.form.get("name"), team=request.form.get("team"), userid)
+    db.session.add(user)
     return "nice job"
 
 #serving static files like images and js
@@ -36,8 +49,6 @@ def images(rfile):
     except:
         return abort(404)
 
-class User(db.Model):
-    id = db.Column(db.String())
 
 if __name__ == '__main__':
     app.run(debug = True)
