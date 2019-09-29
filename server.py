@@ -13,7 +13,8 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite+pysqlite:///../grizzback/pizza.d
 db = SQLAlchemy(app)
 
 pizzaCal = {"cheese": 1950, "pepperoni": 2210, "meat": 3020, "hawaiian": 2210}
-revPizzaCal = dict((v,k) for k,v in pizzaCal.iteritems())
+revPizzaCal = dict((v,k) for k,v in pizzaCal.items())
+
 class User(db.Model):
     email = db.Column(db.String(80))
     name = db.Column(db.String(50))
@@ -62,6 +63,7 @@ def inForm():
 
 @app.route('/emailForm/<uid>/<mood>')
 def emailForm(uid, mood):
+    uid = urllib.parse.quote(uid)
     pizzaS = Ptypes.query.filter_by(userid=uid).all()
 
     rec =""
@@ -71,9 +73,9 @@ def emailForm(uid, mood):
             cal.append(pizzaCal.get(piz.types))
         
     cal.sort()
-    if(mood == "vsad" or mood ="sad"):
+    if(mood == "vsad" or mood =="sad"):
         rec = revPizzaCal.get(max(cal))
-    elif(mood == "vhappy" or mood="happy"):
+    elif(mood == "vhappy" or mood=="happy"):
         rec = revPizzaCal.get(min(cal))
     else:
         rec = revPizzaCal.get(statistics.median_high(cal))
