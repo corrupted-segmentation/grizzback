@@ -1,4 +1,4 @@
-from flask import Flask, render_template, send_from_directory, abort
+from flask import Flask, render_template, send_from_directory, abort, send_file, safe_join
 app = Flask(__name__)
 
 
@@ -14,10 +14,11 @@ def about():
 def form():
     return render_template('intro-form.html')
 
-@app.route('/get/<rfile>')
+@app.route('/static/<rfile>')
 def images(rfile):
     try:
-        return send_from_directory("./static/",rfile)
+        return send_file(filename_or_fp=safe_join("./static/", rfile))
+        #return send_from_directory("./static/",rfile, mimetype='text/plain')
     except:
         return abort(404)
 
