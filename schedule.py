@@ -61,7 +61,7 @@ def nextGame(team):
 
         return datetime(year, month, day, hour, minute)
     else:
-        return datetime.datetime.now()
+        return "now"
 
 
-print(nextGame("rams"))
+#print(nextGame("rams"))

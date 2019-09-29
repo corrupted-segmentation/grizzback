@@ -2,6 +2,8 @@ from flask import Flask, render_template, send_from_directory, abort, send_file,
 import magic
 from sqlite3 import dbapi2 as sqlite
 from flask_sqlalchemy import SQLAlchemy
+import schedule
+import emailler
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite+pysqlite:///../grizzback/pizza.db'
@@ -44,6 +46,10 @@ def inForm():
         db.session.add(thing)
 
     db.session.commit()
+
+    if(schedule.nextGame("now") == "now"):
+        emailler.sendEmail()
+
     return "nice job"
 
 #serving static files like images and js
