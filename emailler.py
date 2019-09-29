@@ -30,4 +30,3 @@ def sendEmail(userId):
     s.sendmail(you, [me], msg.as_string())
     s.quit()
 
-sendEmail()
