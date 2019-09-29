@@ -1,0 +1,11 @@
+#!/bin/bash
+
+mkdir -p ../run/templates
+
+cp ../grizzfront/*.html ../run/templates/
+
+rm -rf ../run/static
+
+cp -r ../grizzfront/static ../run/static
+
+cp *.py ../run/
