@@ -15,8 +15,8 @@ class User(db.Model):
     team = db.Column(db.String(20))
     userid = db.Column(db.String(130), primary_key=True)
 
-class ptypes(db.Model):
-    pizzatypes = db.Column(db.String(11), primary_key=True)
+class Ptypes(db.Model):
+    types = db.Column(db.String(11), primary_key=True)
     userid = db.Column(db.String(130), primary_key=True)
 
 #nav bar routes
@@ -36,9 +36,14 @@ def form():
 @app.route('/inForm', methods=['POST'])
 def inForm():
     print(request.form)
-    userid = request.form.get("name") + request.form.get("email")
-    user = User(email=request.form.get("email"), name=request.form.get("name"), team=request.form.get("team"), userid)
+    userId = request.form.get("fullName") + request.form.get("email")
+    user = User(email=request.form.get("email"), name=request.form.get("fullName"), team=request.form.get("team"), userid=userId)
     db.session.add(user)
+    for pizza in request.form.getlist('pizzas'):
+        thing = Ptypes(types=pizza, userid=userId )
+        db.session.add(thing)
+
+    db.session.commit()
     return "nice job"
 
 #serving static files like images and js
