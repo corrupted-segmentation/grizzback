@@ -1,8 +1,9 @@
-from flask import Flask, render_template, send_from_directory, abort, send_file, safe_join
+from flask import Flask, render_template, send_from_directory, abort, send_file, safe_join, request
 import magic
 app = Flask(__name__)
 
 
+#nav bar routes
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -15,6 +16,13 @@ def about():
 def form():
     return render_template('intro-form.html')
 
+#api stuff
+@app.route('/inForm', methods=['POST'])
+def inForm():
+    print(request.form)
+    return "nice job"
+
+#serving static files like images and js
 @app.route('/static/<rfile>')
 def images(rfile):
     try:
