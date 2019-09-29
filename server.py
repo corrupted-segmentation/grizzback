@@ -51,7 +51,7 @@ def inForm():
     print(schedule.nextGame(request.form.get("team")))
 
     if(schedule.nextGame("now") == "now"):
-        emailler.sendEmail()
+        emailler.sendEmail(userId)
 
     return "nice job"
 

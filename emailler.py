@@ -3,8 +3,12 @@ import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
-def sendEmail():
-    f = open('../grizzfront/email.html', 'r')
+from jinja2 import Environment, FileSystemLoader
+
+def sendEmail(userId):
+
+    env = Environment(loader=FileSystemLoader('templates'))
+    
 
     me = 'me@ryanprairie.com'
     you = 'auto@sportspizza.online'
@@ -14,8 +18,8 @@ def sendEmail():
     msg['From'] = you
     msg['To'] = me
     
-    body = str(f.read()) 
-
+    template = env.get_template('email.html')
+    body = str(template.render(uid=userId))
 
     message = "there was a problem"
 
